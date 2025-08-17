@@ -18,4 +18,5 @@ class LoadOpenposeJSONNode:
     CATEGORY = "openpose"
 
     def load_json(self, json_str: str) -> tuple[OpenposeJSON]:
-        return (json.loads(json_str.replace("'", '"')),)
+        empty_pose = { "people": [], "canvas_width": 512, "canvas_height": 768 }
+        return (json.loads(json_str.replace("'", '"') or "{}") or empty_pose,)

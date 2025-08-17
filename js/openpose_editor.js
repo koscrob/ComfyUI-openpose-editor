@@ -125,9 +125,13 @@ class OpenposeEditorDialog extends ComfyDialog {
     }
 
     setCanvasJSONString(jsonString) {
+        const empty_pose = { "people": [], "canvas_width": 512, "canvas_height": 768 }
+        let poses = JSON.parse(jsonString.replaceAll("'", "\"") || "[]") || empty_pose;
+        poses = Array.isArray(poses) ? poses[0] || empty_pose : poses;
+        poses = Object.keys(poses).length === 0 ? empty_pose : poses;
         this.iframeElement.contentWindow.postMessage({
             modalId: 0,
-            poses: JSON.parse(jsonString.replaceAll("'", "\""))
+            poses: poses
         }, "*");
     }
 }
