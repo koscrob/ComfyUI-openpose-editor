@@ -18,4 +18,4 @@ class LoadOpenposeJSONNode:
     CATEGORY = "openpose"
 
     def load_json(self, json_str: str) -> tuple[OpenposeJSON]:
-        return (json.loads(json_str),)
+        return (json.loads(json_str.replace("'", '"')),)

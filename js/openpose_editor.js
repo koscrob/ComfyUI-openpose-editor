@@ -89,7 +89,8 @@ class OpenposeEditorDialog extends ComfyDialog {
         this.iframeElement = $el("iframe", {
             // Change to for local dev
             // src: "http://localhost:5173",
-            src: "https://huchenlei.github.io/sd-webui-openpose-editor?theme=dark",
+            //src: "https://huchenlei.github.io/sd-webui-openpose-editor?theme=dark",
+            src: "extensions/ComfyUI-openpose-editor/ui/index.html?theme=dark",
             style: {
                 width: "100%",
                 height: "100%",
@@ -126,7 +127,7 @@ class OpenposeEditorDialog extends ComfyDialog {
     setCanvasJSONString(jsonString) {
         this.iframeElement.contentWindow.postMessage({
             modalId: 0,
-            poses: JSON.parse(jsonString)
+            poses: JSON.parse(jsonString.replaceAll("'", "\""))
         }, "*");
     }
 }
